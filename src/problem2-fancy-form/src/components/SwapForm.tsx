@@ -6,7 +6,7 @@ import { IconArrowsExchange, IconInfoCircle, IconCheck } from '@tabler/icons-rea
 import { notifications } from '@mantine/notifications'
 import TokenInput from './TokenInput'
 
-function formatRate(rate: number): string {
+export function formatRate(rate: number): string {
   if (rate < 0.0001) {
     return rate.toFixed(8);
   }
