@@ -6,3 +6,24 @@ html, body, #root {
   padding: 0;
   min-height: 100vh;
 }
+
+.page-wrapper {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #0f0c29 0%, #302b63 50%, #24243e 100%);
+  padding: 20px;
+}
+
+.select-option {
+  color: white;
+}
+
+.select-option:hover {
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.select-option[data-selected] {
+  background: rgba(99, 102, 241, 0.3);
+}
