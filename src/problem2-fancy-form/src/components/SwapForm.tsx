@@ -38,7 +38,7 @@ export default function SwapForm() {
   }, [fromAmount, rate])
 
   useEffect(() => {
-    fetch('/prices.json')
+    fetch(`${import.meta.env.BASE_URL}prices.json`)
       .then(r => r.json())
       .then((data: { currency: string; price: number }[]) => {
         const map: Record<string, number> = {}

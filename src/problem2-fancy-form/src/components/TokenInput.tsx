@@ -54,10 +54,11 @@ export default function TokenInput({
           value={token}
           onChange={onTokenChange}
           w={140}
+          leftSection={token ? <Image src={`${import.meta.env.BASE_URL}tokens/${token}.svg`} w={20} h={20} /> : null}
           comboboxProps={{ withinPortal: false }}
           renderOption={({ option }) => (
             <Group gap="xs" px={4}>
-              <Image src={`/tokens/${option.value}.svg`} w={24} h={24} />
+              <Image src={`${import.meta.env.BASE_URL}tokens/${option.value}.svg`} w={24} h={24} />
               <Text size="sm" fw={600}>{option.value}</Text>
             </Group>
           )}
