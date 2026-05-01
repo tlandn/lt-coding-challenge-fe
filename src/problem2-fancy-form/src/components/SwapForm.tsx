@@ -70,13 +70,11 @@ export default function SwapForm() {
   const handleFromTokenChange = (value: string | null) => {
     if (!value) return
     setFromToken(value)
-    if (value === toToken) setToToken(fromToken)
   }
 
   const handleToTokenChange = (value: string | null) => {
     if (!value) return
     setToToken(value)
-    if (value === fromToken) setFromToken(toToken)
   }
 
   return (
@@ -136,7 +134,7 @@ export default function SwapForm() {
           <TokenInput
             label="You receive"
             value={toAmount}
-            onChange={() => {}}
+            onChange={() => { }}
             token={toToken}
             onTokenChange={handleToTokenChange}
             selectData={selectData}
