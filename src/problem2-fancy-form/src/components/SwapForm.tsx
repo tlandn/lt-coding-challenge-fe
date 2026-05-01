@@ -5,16 +5,7 @@ import {
 import { IconArrowsExchange, IconInfoCircle, IconCheck } from '@tabler/icons-react'
 import { notifications } from '@mantine/notifications'
 import TokenInput from './TokenInput'
-
-export function formatRate(rate: number): string {
-  if (rate < 0.0001) {
-    return rate.toFixed(8);
-  }
-  if (rate < 1) {
-    return rate.toFixed(6);
-  }
-  return rate.toFixed(4);
-}
+import { formatRate } from '../utils/formatRate'
 
 const cardStyle = {
   background: 'rgba(255, 255, 255, 0.05)',
@@ -69,6 +60,7 @@ export default function SwapForm() {
 
   useEffect(() => {
     if (!fromAmount || isNaN(parseFloat(fromAmount)) || !rate) return
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setCalculating(true)
     const timer = setTimeout(() => setCalculating(false), 300 + Math.random() * 200)
     return () => clearTimeout(timer)

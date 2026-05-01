@@ -1,73 +1,62 @@
-# React + TypeScript + Vite
+Hi, I implemented this currency swap form project. 
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## Tech Stack
 
-Currently, two official plugins are available:
+| Layer            | Technology                          |
+| ---------------- | ----------------------------------- |
+| Framework        | React 19                            |
+| Build tool       | Vite 8                              |
+| Language         | TypeScript 6                        |
+| UI library       | Mantine 9                           |
+| Styling          | Tailwind CSS 4                      |
+| Icons            | Tabler Icons                        |
+| Testing          | Vitest 4 + Testing Library          |
+| Linting          | ESLint 10                           |
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## Getting Started
 
-## React Compiler
+### Prerequisites
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- Node.js >= 20
 
-## Expanding the ESLint configuration
+### Installation
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
-
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```bash
+npm install
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+### Development
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+```bash
+npm run dev
+```
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+Open the URL shown in the terminal (default: `http://localhost:5173`).
+
+### Production Build
+
+```bash
+npm run build
+npm run preview
+```
+
+## Testing
+
+Tests are written with **Vitest** and **@testing-library/react**. Run them with:
+
+```bash
+npm test               # single run
+npm run test:watch     # watch mode
+```
+
+### Test Coverage
+
+- **SwapForm** — renders title, loading/error/live states, token inputs, swap direction toggle, rate display, and disabled confirm button.
+- **TokenInput** — renders label, shows/hides USD value depending on price and amount.
+- **formatRate** — adaptive decimal precision: 4 decimals for values ≥ 1, 6 decimals for ≥ 0.0001, 8 decimals for smaller values.
+
+## Linting
+
+```bash
+npm run lint
 ```

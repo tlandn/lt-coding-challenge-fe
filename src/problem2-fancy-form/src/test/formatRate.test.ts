@@ -1,4 +1,4 @@
-import { formatRate } from '../components/SwapForm'
+import { formatRate } from '../utils/formatRate'
 
 describe('formatRate', () => {
   it('returns 4 decimal places for values >= 1', () => {
