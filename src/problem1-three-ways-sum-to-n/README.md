@@ -4,6 +4,10 @@ Hi, I present three ways to sum to n:
 2. Basic loop. Comlexity: Time O(n), Space O(1)
 3. Recursion. Comlexity: Time O(n), Space O(n)
 
+Some edge cases:
++ For any negative n, I will throw error. 
++ For n = 0 I will return 0.
+
 ## Usage
 
 Run the test suite with Node.js:
