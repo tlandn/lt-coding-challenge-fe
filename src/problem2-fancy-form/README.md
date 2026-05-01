@@ -1,5 +1,8 @@
 Hi, I implemented this currency swap form project. 
 
+I also deployed it to Github page for easier viewing. The website is at 
+https://tlandn.github.io/lt-coding-challenge-fe/
+
 ## Tech Stack
 
 | Layer            | Technology                          |
