@@ -2,6 +2,7 @@ const assert = require('node:assert');
 
 const { sum_to_n_a, sum_to_n_b, sum_to_n_c } = require('./solution');
 
+// Pair of [n, output]
 const cases = [
   [0, 0],
   [1, 1],
