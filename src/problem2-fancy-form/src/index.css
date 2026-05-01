@@ -1,5 +1,6 @@
 @import "tailwindcss";
 @import '@mantine/core/styles.css';
+@import '@mantine/notifications/styles.css';
 
 html, body, #root {
   margin: 0;
@@ -26,4 +27,13 @@ html, body, #root {
 
 .select-option[data-selected] {
   background: rgba(99, 102, 241, 0.3);
+}
+
+@keyframes pulse-dim {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.4; }
+}
+
+.input-loading input {
+  animation: pulse-dim 1s ease-in-out infinite;
 }

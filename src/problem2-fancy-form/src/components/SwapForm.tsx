@@ -2,11 +2,18 @@ import { useState, useEffect, useMemo } from 'react'
 import {
   Paper, Text, Button, Group, Stack, Loader, Tooltip,
 } from '@mantine/core'
-import { IconArrowsExchange, IconInfoCircle } from '@tabler/icons-react'
+import { IconArrowsExchange, IconInfoCircle, IconCheck } from '@tabler/icons-react'
+import { notifications } from '@mantine/notifications'
 import TokenInput from './TokenInput'
 
-function formatRate(rate: number) {
-  return rate < 0.0001 ? rate.toFixed(8) : rate < 1 ? rate.toFixed(6) : rate.toFixed(4)
+function formatRate(rate: number): string {
+  if (rate < 0.0001) {
+    return rate.toFixed(8);
+  }
+  if (rate < 1) {
+    return rate.toFixed(6);
+  }
+  return rate.toFixed(4);
 }
 
 const cardStyle = {
@@ -31,6 +38,8 @@ export default function SwapForm() {
   const toPrice = prices[toToken] ?? 0
   const rate = fromPrice && toPrice ? fromPrice / toPrice : 0
 
+  const [calculating, setCalculating] = useState(false)
+
   const toAmount = useMemo(() => {
     const num = parseFloat(fromAmount)
     if (!fromAmount || isNaN(num) || !rate) return ''
@@ -52,8 +61,18 @@ export default function SwapForm() {
         setToToken(currencies[1] ?? '')
       })
       .catch(() => setPricesError(true))
-      .finally(() => setPricesLoading(false))
+      .finally(() => {
+        const delay = 600 + Math.random() * 600
+        setTimeout(() => setPricesLoading(false), delay)
+      })
   }, [])
+
+  useEffect(() => {
+    if (!fromAmount || isNaN(parseFloat(fromAmount)) || !rate) return
+    setCalculating(true)
+    const timer = setTimeout(() => setCalculating(false), 300 + Math.random() * 200)
+    return () => clearTimeout(timer)
+  }, [fromAmount, rate])
 
   const selectData = useMemo(
     () => allCurrencies.map(s => ({ value: s, label: s })),
@@ -102,7 +121,7 @@ export default function SwapForm() {
           )}
 
           <TokenInput
-            label="You pay"
+            label="Amount to send"
             value={fromAmount}
             onChange={setFromAmount}
             token={fromToken}
@@ -132,7 +151,7 @@ export default function SwapForm() {
           </Group>
 
           <TokenInput
-            label="You receive"
+            label="Amount to receive"
             value={toAmount}
             onChange={() => { }}
             token={toToken}
@@ -141,6 +160,7 @@ export default function SwapForm() {
             price={toPrice}
             readOnly
             dimmedAmount
+            loading={calculating}
           />
 
           {rate > 0 && (
@@ -162,6 +182,31 @@ export default function SwapForm() {
               </Group>
             </Paper>
           )}
+
+          <Button
+            fullWidth
+            size="lg"
+            radius="lg"
+            disabled={!fromAmount || parseFloat(fromAmount) <= 0 || !rate || calculating}
+            onClick={() => notifications.show({
+              title: 'Swap executed',
+              message: `${fromAmount} ${fromToken} → ${toAmount} ${toToken}`,
+              color: 'green',
+              icon: <IconCheck size={18} />,
+              autoClose: 5000,
+            })}
+            styles={{
+              root: {
+                background: 'linear-gradient(135deg, #6366f1, #8b5cf6)',
+                border: 'none',
+                height: 48,
+                fontSize: 16,
+                fontWeight: 700,
+              },
+            }}
+          >
+            CONFIRM SWAP
+          </Button>
         </Stack>
       </Paper>
     </div>

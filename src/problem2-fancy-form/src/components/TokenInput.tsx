@@ -1,4 +1,5 @@
 import { Group, Paper, Text, Select, NumberInput, Image } from '@mantine/core'
+import '../index.css'
 
 const paperStyle = {
   background: 'rgba(255, 255, 255, 0.03)',
@@ -35,11 +36,12 @@ interface TokenInputProps {
   price: number
   readOnly?: boolean
   dimmedAmount?: boolean
+  loading?: boolean
 }
 
 export default function TokenInput({
   label, value, onChange, token, onTokenChange,
-  selectData, price, readOnly, dimmedAmount,
+  selectData, price, readOnly, dimmedAmount, loading,
 }: TokenInputProps) {
   const showUSD = price > 0 && value !== '' && parseFloat(String(value)) > 0
 
@@ -63,19 +65,21 @@ export default function TokenInput({
           classNames={{ option: 'select-option' }}
         />
         <div style={{ flex: 1 }}>
-          <NumberInput
-            value={value}
-            onChange={v => onChange(String(v ?? ''))}
-            placeholder="0.0"
-            decimalScale={6}
-            hideControls
-            readOnly={readOnly}
-            size="lg"
-            styles={numberInputStyles(!!dimmedAmount)}
-          />
+          <div className={loading ? 'input-loading' : undefined}>
+            <NumberInput
+              value={value}
+              onChange={v => onChange(String(v ?? ''))}
+              placeholder="0.0"
+              decimalScale={6}
+              hideControls
+              readOnly={readOnly}
+              size="lg"
+              styles={numberInputStyles(!!dimmedAmount && !loading)}
+            />
+          </div>
         </div>
       </Group>
-      {showUSD && (
+      {showUSD && !loading && (
         <Text size="xs" c="dimmed" ta="right" mt={4}>
           ~${formatUSD(parseFloat(String(value)) * price)}
         </Text>
